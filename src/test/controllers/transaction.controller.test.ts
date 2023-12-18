@@ -7,9 +7,11 @@ import { Transaction } from '../../models/transaction'
 describe('TransactionController', () => {
   let createManyStub: SinonStub
   let createOneStub: SinonStub
+  let getTransactionSummaryStub: SinonStub
   beforeEach(() => {
     createManyStub = stub().resolves([])
     createOneStub = stub().resolves({})
+    getTransactionSummaryStub = stub().resolves([])
   })
 
   describe('createMany', () => {
@@ -135,6 +137,60 @@ describe('TransactionController', () => {
       await controller.createOne(req, res)
 
       expect(createOneStub.calledOnceWith(transaction)).to.be.true
+      expect(res.status.calledOnceWith(500)).to.be.true
+      expect(res.json.calledOnceWith({ message: 'Some error' })).to.be.true
+    })
+  })
+
+  describe('getSummary', () => {
+    it('should handle successful retrieval of transaction summary', async () => {
+      const transactionSummary: any[] = [] // Datos de prueba
+
+      const transactionRepositorieMock = {
+        getTransactionSummary: getTransactionSummaryStub,
+        getAllTransactions: stub(),
+        getUserSummaryByCategory: stub(),
+        createMany: stub(),
+        createOne: stub(),
+        userExists: stub(),
+      }
+
+      const controller = new TransactionController(transactionRepositorieMock)
+      const req: any = {}
+      const res: any = {
+        status: stub().returnsThis(),
+        json: stub(),
+      }
+
+      await controller.getSummary(req, res)
+
+      expect(getTransactionSummaryStub.calledOnce).to.be.true
+      expect(res.status.calledOnceWith(200)).to.be.true
+      expect(res.json.calledOnceWith(transactionSummary)).to.be.true
+    })
+
+    it('should handle error during retrieval of transaction summary', async () => {
+      getTransactionSummaryStub.rejects(new Error('Some error'))
+
+      const transactionRepositorieMock = {
+        getTransactionSummary: getTransactionSummaryStub,
+        getAllTransactions: stub(),
+        getUserSummaryByCategory: stub(),
+        createMany: stub(),
+        createOne: stub(),
+        userExists: stub(),
+      }
+
+      const controller = new TransactionController(transactionRepositorieMock)
+      const req: any = {}
+      const res: any = {
+        status: stub().returnsThis(),
+        json: stub(),
+      }
+
+      await controller.getSummary(req, res)
+
+      expect(getTransactionSummaryStub.calledOnce).to.be.true
       expect(res.status.calledOnceWith(500)).to.be.true
       expect(res.json.calledOnceWith({ message: 'Some error' })).to.be.true
     })
