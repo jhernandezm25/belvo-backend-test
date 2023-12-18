@@ -161,3 +161,8 @@ Interfaces were used to define clear contracts between different parts of the sy
      ```
 
 #### I added a postman collection in postman_collection folder
+
+
+### Test
+
+**I use chai for unit testing you can run the test using npm run test**
