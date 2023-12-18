@@ -56,7 +56,8 @@
       "src/routes/**/*",
       "**/*.test.ts",
       ".eslintrc.js",
-      "coverage/*"
+      "coverage/*",
+      "**/index.ts"
     ],
     "reporter": [
       "lcov",

@@ -40,6 +40,62 @@ describe('TransactionRepositorie', () => {
     expect(result).to.be.an('array')
   })
 
+  it('getUserSummaryByCategory should calculate user summary by category', async () => {
+    const userEmail = 'test@example.com'
+    const transactionMock = {
+      type: 'inflow',
+      categories: [
+        { category: 'category1', amount: 10 },
+        { category: 'category2', amount: 20 },
+      ],
+    }
+
+    const aggregateStub = sinon
+      .stub(TransactionModel, 'aggregate')
+      .resolves([transactionMock])
+
+    const repository = new TransactionRepositorie()
+    const result = await repository.getUserSummaryByCategory(userEmail)
+
+    expect(aggregateStub).not.to.be.null
+
+    expect(result).to.deep.equal({
+      inflow: {
+        category1: '10.00',
+        category2: '20.00',
+      },
+      outflow: {},
+    })
+  })
+
+  it('getUserSummaryByCategory should calculate user summary by category outlfow', async () => {
+    const userEmail = 'test@example.com'
+    const transactionMock = {
+      type: 'outflow',
+      categories: [
+        { category: 'category1', amount: 10 },
+        { category: 'category2', amount: 20 },
+      ],
+    }
+
+    const aggregateStub = sinon
+      .stub(TransactionModel, 'aggregate')
+      .resolves([transactionMock])
+
+    const repository = new TransactionRepositorie()
+    const result = await repository.getUserSummaryByCategory(userEmail)
+
+    expect(aggregateStub).not.to.be.null
+
+    expect(result).to.deep.equal({
+      outflow: {
+        category1: '10.00',
+        category2: '20.00',
+      },
+      inflow: {},
+    })
+  })
+
   it('createMany should insert multiple transactions', async () => {
     const insertManyStub = sinon
       .stub(TransactionModel, 'insertMany')
