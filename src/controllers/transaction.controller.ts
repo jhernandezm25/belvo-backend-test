@@ -12,8 +12,7 @@ class TransactionController {
         await this.transactionRepositorie.createMany(transactions)
       res.status(200).json({ data: savedTransactions })
     } catch (error: any) {
-      const statusCode = error instanceof Error ? 500 : 400
-      res.status(statusCode).json({ message: error.message })
+      res.status(500).json({ message: error.message })
     }
   }
 
@@ -24,8 +23,7 @@ class TransactionController {
         await this.transactionRepositorie.createOne(transactions)
       res.status(200).json({ data: savedTransactions })
     } catch (error: any) {
-      const statusCode = error instanceof Error ? 500 : 400
-      res.status(statusCode).json({ message: error.message })
+      res.status(500).json({ message: error.message })
     }
   }
 
@@ -34,8 +32,7 @@ class TransactionController {
       const summary = await this.transactionRepositorie.getAllTransactions()
       res.status(200).json(summary)
     } catch (error: any) {
-      const statusCode = error instanceof Error ? 500 : 400
-      res.status(statusCode).json({ message: error.message })
+      res.status(500).json({ message: error.message })
     }
   }
 
@@ -44,8 +41,7 @@ class TransactionController {
       const summary = await this.transactionRepositorie.getTransactionSummary()
       res.status(200).json(summary)
     } catch (error: any) {
-      const statusCode = error instanceof Error ? 500 : 400
-      res.status(statusCode).json({ message: error.message })
+      res.status(500).json({ message: error.message })
     }
   }
 
@@ -64,8 +60,7 @@ class TransactionController {
         await this.transactionRepositorie.getUserSummaryByCategory(userEmail)
       res.status(200).json(summary)
     } catch (error: any) {
-      const statusCode = error instanceof Error ? 500 : 400
-      res.status(statusCode).json({ message: error.message })
+      res.status(500).json({ message: error.message })
     }
   }
 }

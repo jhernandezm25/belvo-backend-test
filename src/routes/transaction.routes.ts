@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import TransactionRepositorie from '../models/repositories/transaction.repositorie'
-import TransactionController from '../controllers.ts/transaction.controller'
+import TransactionController from '../controllers/transaction.controller'
 
 const router = Router()
 
