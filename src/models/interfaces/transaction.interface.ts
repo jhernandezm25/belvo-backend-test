@@ -6,6 +6,8 @@ interface ITransaction {
   ): Promise<Array<Transaction | null>>
   createOne(transactionData: Transaction): Promise<Transaction | null>
   getTransactionSummary(): Promise<any[]>
+  getUserSummaryByCategory(userEmail: string): Promise<any>
+  userExists(userEmail: string): Promise<boolean>
 }
 
 export default ITransaction

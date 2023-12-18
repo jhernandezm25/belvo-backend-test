@@ -20,5 +20,9 @@ router.get('/', (req, res) => {
     res.status(400).send('Invalid query parameter')
   }
 })
+router.get(
+  '/:userEmail/summary',
+  transactionController.getUserSummaryByCategory,
+)
 
 export default router

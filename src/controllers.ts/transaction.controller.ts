@@ -38,6 +38,26 @@ class TransactionController {
       res.status(statusCode).json({ message: error.message })
     }
   }
+
+  getUserSummaryByCategory = async (
+    req: Request,
+    res: Response,
+  ): Promise<void> => {
+    try {
+      const userEmail = req.params.userEmail
+      const userExists = await this.transactionRepositorie.userExists(userEmail)
+      if (!userExists) {
+        res.status(404).send('User not found')
+        return
+      }
+      const summary =
+        await this.transactionRepositorie.getUserSummaryByCategory(userEmail)
+      res.status(200).json(summary)
+    } catch (error: any) {
+      const statusCode = error instanceof Error ? 500 : 400
+      res.status(statusCode).json({ message: error.message })
+    }
+  }
 }
 
 export default TransactionController
