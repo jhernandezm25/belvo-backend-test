@@ -57,7 +57,8 @@
       "**/*.test.ts",
       ".eslintrc.js",
       "coverage/*",
-      "**/index.ts"
+      "**/index.ts",
+      "src/controllers.ts/**/*"
     ],
     "reporter": [
       "lcov",
