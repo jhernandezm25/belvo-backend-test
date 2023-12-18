@@ -8,10 +8,15 @@ describe('TransactionController', () => {
   let createManyStub: SinonStub
   let createOneStub: SinonStub
   let getTransactionSummaryStub: SinonStub
+  let userExistsStub: SinonStub
+  let getUserSummaryByCategoryStub: SinonStub
+
   beforeEach(() => {
     createManyStub = stub().resolves([])
     createOneStub = stub().resolves({})
     getTransactionSummaryStub = stub().resolves([])
+    userExistsStub = stub()
+    getUserSummaryByCategoryStub = stub().resolves({})
   })
 
   describe('createMany', () => {
@@ -191,6 +196,117 @@ describe('TransactionController', () => {
       await controller.getSummary(req, res)
 
       expect(getTransactionSummaryStub.calledOnce).to.be.true
+      expect(res.status.calledOnceWith(500)).to.be.true
+      expect(res.json.calledOnceWith({ message: 'Some error' })).to.be.true
+    })
+  })
+
+  describe('getUserSummaryByCategory', () => {
+    it('should handle successful retrieval of user summary by category', async () => {
+      const userEmail = 'test@example.com'
+      const userExists = true
+      const userSummary: any = {} // Datos de prueba
+
+      // Mock del método userExists para que devuelva true
+      userExistsStub.resolves(userExists)
+
+      const transactionRepositorieMock = {
+        userExists: userExistsStub,
+        getUserSummaryByCategory: getUserSummaryByCategoryStub,
+        getAllTransactions: stub(),
+        getTransactionSummary: stub(),
+        createMany: stub(),
+        createOne: stub(),
+      }
+
+      const controller = new TransactionController(transactionRepositorieMock)
+      const req: any = { params: { userEmail } }
+      const res: any = {
+        status: stub().returnsThis(),
+        json: stub(),
+      }
+
+      await controller.getUserSummaryByCategory(req, res)
+
+      // Verificar que se llamó a userExists con el correo electrónico del usuario
+      expect(userExistsStub.calledOnceWith(userEmail)).to.be.true
+
+      // Verificar que, dado que el usuario existe, se llamó a getUserSummaryByCategory con el mismo correo electrónico
+      expect(getUserSummaryByCategoryStub.calledOnceWith(userEmail)).to.be.true
+
+      // Verificar que se llamó a res.status con el código 200 y res.json con los datos esperados
+      expect(res.status.calledOnceWith(200)).to.be.true
+      expect(res.json.calledOnceWith(userSummary)).to.be.true
+    })
+
+    it('should handle user not found', async () => {
+      const userEmail = 'nonexistent@example.com'
+      const userExists = false
+
+      // Mock del método userExists para que devuelva false
+      userExistsStub.resolves(userExists)
+
+      const transactionRepositorieMock = {
+        userExists: userExistsStub,
+        getUserSummaryByCategory: getUserSummaryByCategoryStub,
+        getAllTransactions: stub(),
+        getTransactionSummary: stub(),
+        createMany: stub(),
+        createOne: stub(),
+      }
+
+      const controller = new TransactionController(transactionRepositorieMock)
+      const req: any = { params: { userEmail } }
+      const res: any = {
+        status: stub().returnsThis(),
+        send: stub(),
+      }
+
+      await controller.getUserSummaryByCategory(req, res)
+
+      // Verificar que se llamó a userExists con el correo electrónico del usuario
+      expect(userExistsStub.calledOnceWith(userEmail)).to.be.true
+
+      // Verificar que, dado que el usuario no existe, se llamó a res.status con el código 404 y res.send con el mensaje esperado
+      expect(res.status.calledOnceWith(404)).to.be.true
+      expect(res.send.calledOnceWith('User not found')).to.be.true
+    })
+
+    it('should handle error during retrieval of user summary by category', async () => {
+      const userEmail = 'test@example.com'
+      const userExists = true
+
+      // Mock del método userExists para que devuelva true
+      userExistsStub.resolves(userExists)
+
+      // Mock del método getUserSummaryByCategory para que lance un error
+      getUserSummaryByCategoryStub.rejects(new Error('Some error'))
+
+      const transactionRepositorieMock = {
+        userExists: userExistsStub,
+        getUserSummaryByCategory: getUserSummaryByCategoryStub,
+        getAllTransactions: stub(),
+        getTransactionSummary: stub(),
+        createMany: stub(),
+        createOne: stub(),
+      }
+
+      const controller = new TransactionController(transactionRepositorieMock)
+      const req: any = { params: { userEmail } }
+      const res: any = {
+        status: stub().returnsThis(),
+        json: stub(),
+      }
+
+      await controller.getUserSummaryByCategory(req, res)
+
+      // Verificar que se llamó a userExists con el correo electrónico del usuario
+      expect(userExistsStub.calledOnceWith(userEmail)).to.be.true
+
+      // Verificar que, dado que el usuario existe, se llamó a getUserSummaryByCategory con el mismo correo electrónico
+      expect(getUserSummaryByCategoryStub.calledOnceWith(userEmail)).to.be.true
+
+      // Verificar que se llamó a res.status con el código 500 y res.json con el mensaje de error
       expect(res.status.calledOnceWith(500)).to.be.true
       expect(res.json.calledOnceWith({ message: 'Some error' })).to.be.true
     })
