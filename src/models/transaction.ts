@@ -12,7 +12,14 @@ export interface Transaction {
 export interface TransactionDocument extends Transaction, Document {}
 
 const TransactionSchema: Schema = new Schema({
-  reference: { type: String, unique: true, required: true },
+  reference: {
+    type: String,
+    index: {
+      unique: true,
+      sparse: true,
+    },
+    required: true,
+  },
   date: { type: Date, required: true },
   amount: { type: Number, required: true },
   type: { type: String, enum: ['inflow', 'outflow'], required: true },
