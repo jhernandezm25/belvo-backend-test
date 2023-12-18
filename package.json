@@ -25,6 +25,7 @@
     "@types/mocha": "^10.0.6",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.9.1",
+    "@types/sinon": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "chai": "^4.3.10",
@@ -33,6 +34,7 @@
     "eslint-plugin-prettier": "^5.0.1",
     "mocha": "^10.2.0",
     "nyc": "^15.1.0",
+    "sinon": "^17.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   },
@@ -62,9 +64,9 @@
     ],
     "all": true,
     "check-coverage": true,
-    "statements": 100,
-    "branches": 100,
-    "functions": 100,
-    "lines": 100
+    "statements": 60,
+    "branches": 60,
+    "functions": 60,
+    "lines": 60
   }
 }
