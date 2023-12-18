@@ -28,6 +28,16 @@ class TransactionController {
       res.status(statusCode).json({ message: error.message })
     }
   }
+
+  getSummary = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const summary = await this.transactionRepositorie.getTransactionSummary()
+      res.status(200).json(summary)
+    } catch (error: any) {
+      const statusCode = error instanceof Error ? 500 : 400
+      res.status(statusCode).json({ message: error.message })
+    }
+  }
 }
 
 export default TransactionController

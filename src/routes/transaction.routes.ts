@@ -12,5 +12,13 @@ const transactionController: TransactionController = new TransactionController(
 
 router.post('/createOne', transactionController.createOne)
 router.post('/createMany', transactionController.createMany)
+router.get('/', (req, res) => {
+  const groupByType = req.query.group_by === 'type'
+  if (groupByType) {
+    transactionController.getSummary(req, res)
+  } else {
+    res.status(400).send('Invalid query parameter')
+  }
+})
 
 export default router

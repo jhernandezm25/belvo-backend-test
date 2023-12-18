@@ -5,6 +5,7 @@ interface ITransaction {
     transactionData: Array<Transaction>,
   ): Promise<Array<Transaction | null>>
   createOne(transactionData: Transaction): Promise<Transaction | null>
+  getTransactionSummary(): Promise<any[]>
 }
 
 export default ITransaction
