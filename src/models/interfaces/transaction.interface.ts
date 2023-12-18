@@ -8,6 +8,7 @@ interface ITransaction {
   getTransactionSummary(): Promise<any[]>
   getUserSummaryByCategory(userEmail: string): Promise<any>
   userExists(userEmail: string): Promise<boolean>
+  getAllTransactions(): Promise<Transaction[]>
 }
 
 export default ITransaction

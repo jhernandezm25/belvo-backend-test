@@ -2,6 +2,9 @@ import { Transaction, TransactionModel } from '../transaction'
 import ITransaction from '../interfaces/transaction.interface'
 
 class TransactionRepositorie implements ITransaction {
+  async getAllTransactions(): Promise<Transaction[]> {
+    return await TransactionModel.find({})
+  }
   async getUserSummaryByCategory(userEmail: string): Promise<any> {
     const pipeline: any[] = [
       { $match: { user_email: userEmail } },

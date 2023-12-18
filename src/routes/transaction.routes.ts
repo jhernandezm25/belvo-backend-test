@@ -24,5 +24,6 @@ router.get(
   '/:userEmail/summary',
   transactionController.getUserSummaryByCategory,
 )
+router.get('/all', transactionController.getAllTransactions)
 
 export default router
