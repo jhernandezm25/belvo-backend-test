@@ -45,7 +45,7 @@ Interfaces were used to define clear contracts between different parts of the sy
 #### 1. **Add Transactions (many)**
  - **Description:** Allows adding new transactions (Array) to the database.
    - **HTTP Method:** `POST`
-   - **Endpoint:** `/transactions`
+   - **Endpoint:** `/transactions/createMany`
    - **Request Body (Example):**
      ```json
      [
@@ -76,7 +76,7 @@ Interfaces were used to define clear contracts between different parts of the sy
 #### 2. **Add Transactions (one)**
  - **Description:** Allows adding a transaction to the database.
    - **HTTP Method:** `POST`
-   - **Endpoint:** `/transactions`
+   - **Endpoint:** `/transactions/createone`
    - **Request Body (Example):**
      ```json
      
