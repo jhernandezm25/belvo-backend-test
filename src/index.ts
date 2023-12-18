@@ -11,7 +11,7 @@ const db = new DB()
 db.getConnection()
 
 const app = express()
-const port = 3000
+const port = process.env.APP_PORT || 3000
 
 //middlewares
 app.use(express.json())
@@ -23,9 +23,9 @@ app.use(bodyParser.json())
 app.use('/transactions', transactionRoutes)
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('¡Hola, mundo!')
+  res.send('hello, world!')
 })
 
 app.listen(port, () => {
-  console.log(`Servidor Express escuchando en el puerto ${port}`)
+  console.log(`The server is running on port ${port}`)
 })

@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "864b99a8-22c3-4c21-aa1b-be4ca909f03a",
+		"name": "belvo-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19053418"
+	},
+	"item": [
+		{
+			"name": "healt",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createMany",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"reference\": \"000051\",\r\n        \"date\": \"2020-01-03\",\r\n        \"amount\": \"-51.13\",\r\n        \"type\": \"outflow\",\r\n        \"category\": \"groceries\",\r\n        \"user_email\": \"janedoe@email.com\"\r\n    },\r\n    {\r\n        \"reference\": \"000052\",\r\n        \"date\": \"2020-01-10\",\r\n        \"amount\": \"2500.72\",\r\n        \"type\": \"inflow\",\r\n        \"category\": \"salary\",\r\n        \"user_email\": \"janedoe@email.com\"\r\n    },\r\n    {\r\n        \"reference\": \"000053\",\r\n        \"date\": \"2020-01-10\",\r\n        \"amount\": \"-150.72\",\r\n        \"type\": \"outflow\",\r\n        \"category\": \"transfer\",\r\n        \"user_email\": \"janedoe@email.com\"\r\n    },\r\n    {\r\n        \"reference\": \"000054\",\r\n        \"date\": \"2020-01-13\",\r\n        \"amount\": \"-560.00\",\r\n        \"type\": \"outflow\",\r\n        \"category\": \"rent\",\r\n        \"user_email\": \"janedoe@email.com\"\r\n    },\r\n    {\r\n        \"reference\": \"000055\",\r\n        \"date\": \"2020-01-04\",\r\n        \"amount\": \"-51.13\",\r\n        \"type\": \"outflow\",\r\n        \"category\": \"other\",\r\n        \"user_email\": \"johndoe@email.com\"\r\n    },\r\n    {\r\n        \"reference\": \"000689\",\r\n        \"date\": \"2020-01-10\",\r\n        \"amount\": \"150.72\",\r\n        \"type\": \"inflow\",\r\n        \"category\": \"savings\",\r\n        \"user_email\": \"janedoe@email.com\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/transactions/createMany",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions",
+						"createMany"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createOne",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reference\": \"000056\",\r\n    \"date\": \"2020-01-04\",\r\n    \"amount\": \"55.13\",\r\n    \"type\": \"inflow\",\r\n    \"category\": \"other\",\r\n    \"user_email\": \"johndoe@email.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/transactions/createOne",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions",
+						"createOne"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/transactions?group_by=type",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "group_by",
+							"value": "type"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get summary by user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/transactions?group_by=type",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions"
+					],
+					"query": [
+						{
+							"key": "group_by",
+							"value": "type"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all transactions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/transactions/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
